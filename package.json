@@ -1,0 +1,16 @@
+{
+  "name": "index",
+  "version": "0.0.1",
+  "description": "Pizza App",
+  "main": "index.html",
+  "repository": "https://github.com/kottans-frontend-2018/pizza-app-OleksiyRudenko.git",
+  "author": "OleksiyRudenko <oleksiy.rudenko@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "parcel ./src/index.html --public-url ./",
+    "watch": "parcel watch ./src/index.html --public-url ./",
+    "build-dev": "parcel build ./src/index.html --no-minify --public-url ./",
+    "build": "parcel build ./src/index.html --public-url ./"
+  }
+}
