@@ -10,7 +10,7 @@
     --color-neutral-xparent:  rgba(153, 153, 153, 0.8);
     --color-light-xparent:    rgba(187, 187, 187, 0.8);
     --color-lightest-xparent: rgba(238, 238, 238, 0.8);
-    --color-white-xparent:    rgba(255,255,255,0.6);
+    --color-white-xparent:    rgba(255, 255, 255, 0.6);
 }
 
 html {
