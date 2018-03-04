@@ -20,6 +20,10 @@ export default class Secret extends Component {
     console.log(this.state);
   }
 
+  /**
+   * Renders component view
+   * @returns {HTMLElement}
+   */
   render() {
     const container = dom.createElement({
       tag: 'div',
@@ -29,14 +33,14 @@ export default class Secret extends Component {
 
     const links = Obj.map(this.state.links, ({url},name) => {
       if (url.search(':id') >= 0 ) {
-        url = url.replace(':id', '1');
+        url = url.replace(':id', Math.floor(Math.random() * 100) + 1);
       }
       return `<a href="#${url}">${name}</a>`
     });
 
-
-    container.innerHTML = '<h2>Secret</h2>' +
-        '<div>You do not belong here! Navigate away!</div>' +
+    container.innerHTML = '<h2>Secret place</h2>' +
+        '<p>Kinda 404, you know...</p>' +
+        '<p>You do not belong here! Navigate away!</p>' +
         '<div>' + links.join('</div><div>') + '</div>';
     return container;
   }

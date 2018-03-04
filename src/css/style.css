@@ -50,6 +50,10 @@ form {
     align-items: center;
 }
 
+hr {
+    width: 100%;
+}
+
 .shaded-content-container {
     background-color: var(--color-white-xparent);
     padding: 0.8rem 1rem 0.5rem 1rem;

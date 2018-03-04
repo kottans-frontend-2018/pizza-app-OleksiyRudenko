@@ -24,7 +24,11 @@ export default class Order extends Component {
       classList: ['shaded-content-container', 'column'],
     });
 
-    container.innerHTML = `<h2>Order #${this.state.id}</h2>`;
+    container.innerHTML = `<h2>Order #${this.state.id}</h2>
+      <a href="#/order/${Math.floor(Math.random()*100)+1}">Random order</a>
+      <hr/>
+      <a href="#/">Home</a>
+      <a href="#/${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}">Random link</a>`;
     return container;
   }
 }

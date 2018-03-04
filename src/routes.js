@@ -4,7 +4,7 @@ import Secret from './components/Secret';
 import Order from './components/Order';
 
 export const routes = {
-  root: {
+  home: {
     url: '/',
     redirectTo: 'login',
   },
