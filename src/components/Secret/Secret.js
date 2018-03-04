@@ -21,8 +21,23 @@ export default class Secret extends Component {
   }
 
   render() {
-    return '<h2>Secret</h2>' +
+    const container = dom.createElement({
+      tag: 'div',
+      id: 'secret-container',
+      classList: ['shaded-content-container', 'column'],
+    });
+
+    const links = Obj.map(this.state.links, ({url},name) => {
+      if (url.search(':id') >= 0 ) {
+        url = url.replace(':id', '1');
+      }
+      return `<a href="#${url}">${name}</a>`
+    });
+
+
+    container.innerHTML = '<h2>Secret</h2>' +
         '<div>You do not belong here! Navigate away!</div>' +
-        '<div>' + Obj.map(this.state.links, ({url},name) => `<a href="#${url}">${name}</a>`) + '</div>';
+        '<div>' + links.join('</div><div>') + '</div>';
+    return container;
   }
 }

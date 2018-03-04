@@ -34,12 +34,13 @@ Install dependencies:
 ## Time tracking
 
 ```
-01h25 = TOTAL
+04h05 = TOTAL
 00h45 - chores
 00h25 - initial code base
 00h30 - utils/object
 00h55 - basic router functionality
-00h20 - components: login
+00h40 - components: login
+00h50 - components: register
 ```
 
 [_- TOC -_](#table-of-contents)

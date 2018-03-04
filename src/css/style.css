@@ -26,7 +26,7 @@ body {
     background-position: center center;
     background-image: url(../assets/background/pizza-oven.jpg);
     font-size: 100%;
-    padding: 0;
+    padding: 1rem 0 0 0;
     margin: 0;
     color: var(--color-darkest);
     min-height: 100%;
@@ -50,10 +50,16 @@ form {
     align-items: center;
 }
 
-h2 {
+.shaded-content-container {
     background-color: var(--color-white-xparent);
     padding: 0.8rem 1rem 0.5rem 1rem;
     border-radius: 0.5rem;
+}
+
+.column {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
 /* UI controls */
@@ -113,4 +119,9 @@ input[type="email"]:required:valid + label.validity::before {
     font-size: 140%;
     right: 1.1rem;
     top: -1.1rem;
+}
+
+button {
+    color: var(--color-lightest);
+    font-weight: bolder;
 }
