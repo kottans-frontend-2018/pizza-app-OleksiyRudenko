@@ -61,23 +61,7 @@ export default class Router extends Component {
         this.navigateTo(this.state.routes[nextRoute.redirectTo].url);
       }
       console.log(nextRoute);
-      // extract parameters if any
-      let params = {};
-      if (Url.containsUrlParams(nextRoute.url)) {
-        const urlTemplateComponents = nextRoute.url.split('/');
-        const pathComponents = path.split('/');
-        urlTemplateComponents.forEach((id,idx) => {
-          if (id[0] === ':') {
-            params[id.slice(1)] = pathComponents[idx];
-          }
-        });
-        /*
-        console.log('Params! Params! Params!');
-        let matches = [];
-        nextRoute.url.replace(Url.URL_PARAM_REGEXP, (m,p) => matches.push(p));
-        console.log(matches); */
-      }
-
+      const params = Url.extractUrlParams(nextRoute.url, path);
       this.updateState({
         activeComponent: new nextRoute.component(Object.assign({}, this.props, {host:this.host}, this.state, params)),
         currentRoute: nextRoute,
