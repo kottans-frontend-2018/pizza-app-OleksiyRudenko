@@ -1,6 +1,8 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
 import * as Obj from '../../utils/object.js';
+import './style.css';
+import * as auth from "../../utils/auth.js";
 
 /**
  * Class representing user registration.
@@ -9,7 +11,7 @@ export default class Register extends Component {
   constructor(props) {
     super(props);
     this.host = dom.createElement();
-    dom.bindHandlers(this, 'handleSubmitAction', 'handlePasswordsMatch');
+    dom.bindHandlers(this, 'handleDefaultSubmitAction', 'handleRealSubmitAction', 'handlePasswordsMatch');
   }
 
   /**
@@ -22,8 +24,9 @@ export default class Register extends Component {
       id: 'register-container',
       classList: ['shaded-content-container', 'column'],
     });
-    container.addEventListener('submit', this.handleSubmitAction);
+    container.addEventListener('submit', this.handleDefaultSubmitAction);
     container.innerHTML = `<h2>Register</h2>
+    <div id="register-result"></div>
     <form id="register-form" method="POST" target="#/login">
       <div>
         <input required type="text" id="register-username" name="register-username" 
@@ -45,32 +48,31 @@ export default class Register extends Component {
             minlength="8" maxlength="32" inputmode="email" placeholder="E-mail" title="Type your e-mail in" />
         <label for="register-email" class="validity"></label>
       </div>
-      <button type="submit" id="register-submit">Sign up!</button>
+      <button type="button" id="register-real-submit">Sign up!</button>
+      <button type="submit" class="register-hidden" id="register-default-submit">You should not see me</button>
     </form>
     <div>Have already got an account?</div>
     <a href="#/login">Login</a>
     <hr/>
     <a href="#/${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}">Random link</a>
     `;
+    // TODO: Promisify templates
     setTimeout(()=>{
       document.getElementById('register-password1').addEventListener('input', this.handlePasswordsMatch);
       document.getElementById('register-password2').addEventListener('input', this.handlePasswordsMatch);
+      document.getElementById('register-real-submit').addEventListener('click', this.handleRealSubmitAction);
     }, 200);
     return container;
   }
 
   /**
-   * Handles registration form submission
+   * Handles default form submission to activate native validations
    * @param {Event} ev
    */
-  handleSubmitAction(ev) {
+  handleDefaultSubmitAction(ev) {
     ev.preventDefault();
-    let fields = {};
-    ['register-username', 'register-password1', 'register-password2', 'register-email'].forEach(name => {
-      fields[name.split('-').slice(1).join('-')] = ev.target.elements[name].value.trim()
-    });
-    console.log(this.name + ': Submit action invoked with credentials: ' +
-      Obj.map(fields, (val,key) => key + '=`' + val +'`; '));
+    console.log(this.name + ' handleDefaultSubmitAction');
+    console.log(ev.target);
   }
 
   /**
@@ -81,6 +83,39 @@ export default class Register extends Component {
     const pwd1 = document.getElementById('register-password1');
     const pwd2 = document.getElementById('register-password2');
     pwd2.setCustomValidity(pwd1.value === pwd2.value ? "" : "Both passwords should match");
-    document.getElementById('register-submit').click();
+    document.getElementById('register-default-submit').click();
+  }
+
+  /**
+   * Handles registration submission
+   * @param {Event} ev
+   */
+  handleRealSubmitAction(ev) {
+    ev.preventDefault();
+    console.log(this.name + ' handleREalSubmitAction');
+    console.log(ev.target);
+    let fields = {};
+    ['register-username', 'register-password1', 'register-password2', 'register-email'].forEach(name => {
+      fields[name.split('-').slice(1).join('-')] = document.getElementById(name).value.trim()
+    });
+
+    console.log(this.name + ': Submit action invoked with credentials: ' +
+      Obj.map(fields, (val,key) => key + '=`' + val +'`; '));
+
+    const registerResultElement = document.getElementById('register-result');
+    auth.register(fields.username, fields.password1, fields.email ).then( registerResult => {
+      registerResultElement.classList.add('register-success');
+      registerResultElement.classList.remove('register-error');
+      registerResultElement.innerHTML = 'Registered successfully';
+      // TODO: navigate to navigateOnSuccessTo and suggest a username for log on
+    }).catch( registerResult => {
+      registerResultElement.classList.remove('register-success');
+      registerResultElement.classList.add('register-error');
+      registerResultElement.innerHTML = registerResult.error + '<div>' + registerResult.validations.join('</div><div>') + '</div>';
+      // clean up inputs and focus on username input
+      const els = ['register-username', 'register-password1', 'register-password2', 'register-email'].map(elId => document.getElementById(elId));
+      els.forEach(el => el.value = '');
+      els[0].focus();
+    });
   }
 }

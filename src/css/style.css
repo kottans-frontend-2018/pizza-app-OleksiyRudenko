@@ -5,6 +5,8 @@
     --color-light:    #bbb;
     --color-lightest: #eee;
 
+    --color-accent: #428bca;
+
     --color-darkest-xparent:  rgba(51, 51, 51, 0.8);
     --color-dark-xparent:     rgba(102, 102, 102, 0.8);
     --color-neutral-xparent:  rgba(153, 153, 153, 0.8);

@@ -1,5 +1,7 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
+import * as auth from '../../utils/auth.js';
+import './style.css';
 
 /**
  * Class representing user login.
@@ -23,6 +25,7 @@ export default class Login extends Component {
     });
     container.addEventListener('submit', this.handleSubmitAction);
     container.innerHTML = `<h2>Login</h2>
+    <div id="login-result"></div>
     <form id="login-form" method="POST" target="#/login">
       <div>
         <input required type="text" id="login-username" name="login-username" 
@@ -51,6 +54,21 @@ export default class Login extends Component {
     let username, password;
     [username, password] = [ ev.target.elements['login-username'].value.trim(),
       ev.target.elements['login-password'].value.trim() ];
-    console.log(this.name + `: Submit action invoked with credentials: {${username}:${password}}`);
+    const loginResultElement = document.getElementById('login-result');
+    auth.login(username, password).then( loginResult => {
+        loginResultElement.classList.add('login-success');
+        loginResultElement.classList.remove('login-error');
+        loginResultElement.innerHTML = 'Logged in successfully';
+        // save token and navigate to navigateOnSuccessTo
+        // TODO: save token and navigate to navigateOnSuccessTo
+      }).catch( loginResult => {
+        loginResultElement.classList.remove('login-success');
+        loginResultElement.classList.add('login-error');
+        loginResultElement.innerHTML = loginResult.error;
+        // clean up inputs and focus on username input
+        const els = ['login-username', 'login-password'].map(elId => document.getElementById(elId));
+        els.forEach(el => el.value = '');
+        els[0].focus();
+    });
   }
 }

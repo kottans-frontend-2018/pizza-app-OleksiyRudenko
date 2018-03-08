@@ -1,16 +1,15 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
-import * as Obj from "../../utils/object";
 
 /**
- * Class representing particular order.
+ * Class representing orders list.
  */
-export default class Order extends Component {
+export default class Orders extends Component {
   constructor(props) {
     super(props);
     this.host = dom.createElement({
       tag: 'div',
-      id: 'order-container',
+      id: 'orders-container',
     });
     this.state = {
       id: props.id,
@@ -20,11 +19,11 @@ export default class Order extends Component {
   render() {
     const container = dom.createElement({
       tag: 'div',
-      id: 'order-container',
+      id: 'orders-container',
       classList: ['shaded-content-container', 'column'],
     });
 
-    container.innerHTML = `<h2>Order #${this.state.id}</h2>
+    container.innerHTML = `<h2>Current orders</h2>
       <a href="#/order/${Math.floor(Math.random()*100)+1}">Random order</a>
       <hr/>
       <a href="#/">Home</a>
