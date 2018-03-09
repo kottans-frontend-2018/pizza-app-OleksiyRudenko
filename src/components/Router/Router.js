@@ -11,15 +11,18 @@ export default class Router extends Component {
     super(props);
     this.state = {
       routes: props.routes,
+      defaultRoute: props.defaultRoute,
       currentRoute: null,
       currentPath: null,
+      previousRoute: null,
+      previousRestrictedRoute: null,
       activeComponent: null,
     };
     console.log('Router:');
     console.log(props);
-    dom.bindHandlers(this, 'handleUrlChange', 'navigateTo');
+    dom.bindHandlers(this, 'handleUrlChange', 'navigateToUrl');
     if (!this.path) {
-      this.navigateTo('/');
+      this.navigateToRoute('home');
     }
     window.addEventListener('hashchange', () => {
       this.handleUrlChange(this.path);
@@ -49,14 +52,14 @@ export default class Router extends Component {
     console.log(routes);
 
     let nextRoute = Obj.find(routes, ({url}) => Url.isMatchingPath(url, path) );
-    if (!nextRoute) nextRoute = this.state.routes[this.props.defaultRoute];
+    if (!nextRoute) nextRoute = this.state.routes[this.state.defaultRoute];
     console.log(nextRoute);
     if (!!nextRoute && (nextRoute !== currentRoute || currentPath !== path )) {
       if (nextRoute.onEnter) {
         this.handleOnEnter(nextRoute);
       }
-      if (nextRoute.redirectTo) {
-        this.navigateTo(this.state.routes[nextRoute.redirectTo].url);
+      if (nextRoute.redirectToRoute) {
+        this.navigateToRoute(nextRoute.redirectToRoute);
         return;
       }
       console.log(nextRoute);
@@ -73,8 +76,23 @@ export default class Router extends Component {
    * Navigate to a given url
    * @param {string} url
    */
-  navigateTo(url) {
+  navigateToUrl(url) {
     window.location.hash = url;
+  }
+
+  /**
+   * Navigate to a given route. Puts past route on history
+   * @param {string} route name
+   */
+  navigateToRoute(routeName) {
+    if (this.state.currentRoute) {
+      this.state.previousRoute = this.state.currentRoute;
+      // next may be used by such features like Login to bring user back to the point he was rejected from
+      if (this.state.currentRoute.redirectUnauthorizedToRoute) {
+        this.previousRestrictedRoute = this.state.currentRoute;
+      }
+    }
+    this.navigateToUrl(this.state.routes[routeName].url);
   }
 
   /**

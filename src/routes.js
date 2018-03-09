@@ -8,31 +8,31 @@ import Orders from './components/Orders';
 export const routes = {
   home: {
     url: '/',
-    redirectTo: 'login',
+    redirectToRoute: 'login',
   },
   login: {
     url: '/login',
     component: Login,
-    navigateOnSuccessTo: 'orders',
+    navigateOnSuccessToRoute: 'orders',
   },
   logout: {
     url: '/logout',
     component: Logout,
-    navigateOnSuccessTo: 'login',
+    navigateOnSuccessToRoute: 'login',
   },
   register: {
     url: '/register',
     component: Register,
-    navigateOnSuccessTo: 'login',
+    navigateOnSuccessToRoute: 'login',
   },
   orders: {
     url: '/orders',
-    redirectUnauthorizedTo: 'login',
+    redirectUnauthorizedToRoute: 'login',
     component: Orders,
   },
   order: {
     url: '/order/:id',
-    redirectUnauthorizedTo: 'login',
+    redirectUnauthorizedToRoute: 'login',
     component: Order,
   },
   secret: {
