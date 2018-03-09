@@ -76,6 +76,8 @@ input[type="password"],
 input[type="email"]
 {
     position: relative;
+    padding-left: 0.5rem;
+    padding-right: 1.85rem;
     /* border: 0.06rem solid #e6e8ee;
     border-radius: 0.25rem;
     color: #6e768f;
@@ -97,7 +99,6 @@ input[type="password"]:required + label.validity,
 input[type="email"]:required + label.validity {
     display: inline-block;
     position: relative;
-    margin-right: 0.7rem;
 }
 
 
