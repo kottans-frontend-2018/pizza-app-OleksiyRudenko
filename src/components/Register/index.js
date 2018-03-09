@@ -1,1 +1,2 @@
-export { default as default } from './Register.js';
+import mod from './Register.js';
+export default mod;

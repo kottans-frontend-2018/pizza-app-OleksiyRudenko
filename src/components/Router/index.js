@@ -1,1 +1,2 @@
-export { default as default } from './Router.js';
+import mod from './Router.js';
+export default mod;

@@ -1,1 +1,2 @@
-export { default as default } from './Logout.js';
+import mod from './Logout.js';
+export default mod;

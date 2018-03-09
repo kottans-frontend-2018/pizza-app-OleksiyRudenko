@@ -1,1 +1,2 @@
-export { default as default } from './Secret.js';
+import mod from './Secret.js';
+export default mod;

@@ -1,1 +1,2 @@
-export { default as default } from './Order.js';
+import mod from './Order.js';
+export default mod;
