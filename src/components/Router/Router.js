@@ -57,6 +57,7 @@ export default class Router extends Component {
       }
       if (nextRoute.redirectTo) {
         this.navigateTo(this.state.routes[nextRoute.redirectTo].url);
+        return;
       }
       console.log(nextRoute);
       const params = Url.extractUrlParams(nextRoute.url, path);
