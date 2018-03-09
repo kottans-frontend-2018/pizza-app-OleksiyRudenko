@@ -6,6 +6,10 @@ import Order from './components/Order';
 import Orders from './components/Orders';
 
 export const routes = {
+  none: {
+    url: '',
+    redirectToRoute: 'home',
+  },
   home: {
     url: '/',
     redirectToRoute: 'login',
