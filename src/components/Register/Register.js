@@ -82,8 +82,10 @@ export default class Register extends Component {
   handlePasswordsMatch(ev) {
     const pwd1 = document.getElementById('register-password1');
     const pwd2 = document.getElementById('register-password2');
-    pwd2.setCustomValidity(pwd1.value === pwd2.value ? "" : "Both passwords should match");
-    document.getElementById('register-default-submit').click();
+    if (pwd2.value.length) {
+      pwd2.setCustomValidity(pwd1.value === pwd2.value ? "" : "Both passwords should match");
+      document.getElementById('register-default-submit').click();
+    }
   }
 
   /**
