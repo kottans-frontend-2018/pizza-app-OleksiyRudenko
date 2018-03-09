@@ -94,8 +94,7 @@ export default class Register extends Component {
    */
   handleRealSubmitAction(ev) {
     ev.preventDefault();
-    console.log(this.name + ' handleREalSubmitAction');
-    console.log(ev.target);
+    if (!document.getElementById('register-form').reportValidity()) return;
     let fields = {};
     ['register-username', 'register-password1', 'register-password2', 'register-email'].forEach(name => {
       fields[name.split('-').slice(1).join('-')] = document.getElementById(name).value.trim()
