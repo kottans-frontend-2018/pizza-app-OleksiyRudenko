@@ -22,7 +22,7 @@ export default class Logout extends Component {
       id: 'logout-container',
     });
     container.addEventListener('click', this.handleLogoutAction);
-    container.innerHTML = `<a href="#/login">Sign out</a>`;
+    container.innerHTML = `<a href="#/logout">Sign out</a>`;
     return container;
   }
 

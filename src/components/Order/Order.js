@@ -13,7 +13,7 @@ export default class Order extends Component {
       id: 'order-container',
     });
     this.state = {
-      id: props.id,
+      id: this.props.params.id,
     };
   }
 

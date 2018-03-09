@@ -13,7 +13,7 @@ export default class Secret extends Component {
       id: 'secret-container',
     });
     this.state = {
-      links: this.props.routes,
+      links: this.props.routing.routes,
     };
     console.log(this.name);
     console.log(this.props);

@@ -65,7 +65,12 @@ export default class Router extends Component {
       console.log(nextRoute);
       const params = Url.extractUrlParams(nextRoute.url, path);
       this.updateState({
-        activeComponent: new nextRoute.component(Object.assign({}, this.props, {host:this.host}, this.state, params)),
+        activeComponent: new nextRoute.component({
+          host: this.host,
+          routing: this.state,
+          routeProps: nextRoute,
+          params: params,
+        }),
         currentRoute: nextRoute,
         currentPath: path,
       });
