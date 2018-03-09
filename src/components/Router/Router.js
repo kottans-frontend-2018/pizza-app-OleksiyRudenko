@@ -18,11 +18,9 @@ export default class Router extends Component {
     console.log('Router:');
     console.log(props);
     dom.bindHandlers(this, 'handleUrlChange', 'navigateTo');
-    if (!window.location.hash) {
-      window.location.hash = '/';
+    if (!this.path) {
+      this.navigateTo('/');
     }
-    /* console.log('hash');
-    console.log(window.location.hash); */
     window.addEventListener('hashchange', () => {
       this.handleUrlChange(this.path);
     });
