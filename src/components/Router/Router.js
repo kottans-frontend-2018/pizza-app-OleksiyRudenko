@@ -87,7 +87,7 @@ export default class Router extends Component {
 
   /**
    * Navigate to a given route. Puts past route on history
-   * @param {string} route name
+   * @param {string} routeName name
    */
   navigateToRoute(routeName) {
     if (this.state.currentRoute) {
