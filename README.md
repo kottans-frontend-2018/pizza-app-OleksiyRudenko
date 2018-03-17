@@ -27,7 +27,6 @@ Install dependencies:
 
  * [@github](https://github.com/lempiy/Kottans-Pizza-Api)
  * [docs](https://github.com/lempiy/Kottans-Pizza-Api/blob/master/docs/README.md)
- * [end point](https://pizza-vtridoro.ga/api/v1/user/my_info)
 
 [_- TOC -_](#table-of-contents)
 
