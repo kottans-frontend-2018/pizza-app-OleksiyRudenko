@@ -25,7 +25,7 @@ export default class Register extends Component {
       classList: ['shaded-content-container', 'column'],
     });
     container.addEventListener('submit', this.handleDefaultSubmitAction);
-    container.innerHTML = `<h2>Register</h2>
+    dom.setChildren(container, `<h2>Register</h2>
     <div id="register-result"></div>
     <form id="register-form" method="POST" target="#/login">
       <div>
@@ -55,13 +55,13 @@ export default class Register extends Component {
     <a href="#/login">Login</a>
     <hr/>
     <a href="#/${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}">Random link</a>
-    `;
-    // TODO: Promisify templates
-    setTimeout(()=>{
+    `, node => {
       document.getElementById('register-password1').addEventListener('input', this.handlePasswordsMatch);
       document.getElementById('register-password2').addEventListener('input', this.handlePasswordsMatch);
       document.getElementById('register-real-submit').addEventListener('click', this.handleRealSubmitAction);
-    }, 200);
+    });
+    // console.log('Register.render()');
+    // console.log(container);
     return container;
   }
 

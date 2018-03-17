@@ -1,4 +1,11 @@
 /**
+ * Callback for manipulating Node entry key and value.
+ *
+ * @callback onNodeReady
+ * @param {Node} node
+ */
+
+/**
  * Creates an HTML element
  * @param {object} options
  * @returns {HTMLElement}
@@ -41,6 +48,76 @@ export const createElement = function(options={tag:'div'}) {
     });
   }
   return element;
+};
+
+/**
+ * Renders DOM structure from string
+ * @param {string} string
+ * @param {onNodeReady} onReady to call when elements from string are rendered
+ */
+export const toDOM = (string, onReady) => {
+  const fragment = document.createDocumentFragment();
+  const helperElement = document.createElement('div');
+  // console.log('toDOM()');
+  helperElement.innerHTML = string.trim();
+  (function iterativeRenderer(){
+    if (helperElement.firstChild){
+      // Array.from(helperElement.childNodes).forEach(el => fragment.appendChild(el));
+      fragment.appendChild(helperElement.firstChild);
+      setTimeout(iterativeRenderer, 0); // arguments.callee
+    } else {
+      // console.log(helperElement);
+      // console.log(fragment);
+      onReady && onReady(fragment);
+    }
+  })();
+  // return fragment;
+};
+
+/**
+ * Reassigns children to the node
+ * @param {Node} node
+ * @param {string|HTMLCollection|Node|[Node...]|DocumentFragment} children
+ * @param {onNodeReady} onReady to call when elements from string are rendered
+ */
+export const setChildren = (node, children, onReady) => {
+  if (typeof children === 'string') {
+    toDOM(children, fragment => _setChildren(node, fragment, onReady));
+  } else {
+    _setChildren(node, children, onReady);
+  }
+};
+
+/**
+ * Reassigns children to the node. String not accepted!
+ * @param {Node} node
+ * @param {HTMLCollection|Node|[Node...]|DocumentFragment} children
+ * @param {onNodeReady} onReady to call when elements appended
+ */
+export const _setChildren = (node, children, onReady) => {
+  if (children === '[object HTMLCollection]') {
+    children = Array.from(children);
+  }
+  node = clearChildren(node);
+  if (Array.isArray(children)) {
+    children.forEach(el => node.appendChild(el));
+  } else {
+    node.appendChild(children);
+  }
+  onReady && onReady(node);
+};
+
+/**
+ * Clears node children
+ * @param {Node} node
+ * @returns {Node}
+ */
+export const clearChildren = node => {
+  // node.innerHTML = '';
+  while (node.hasChildNodes()) {
+    node.removeChild(node.lastChild);
+  }
+  return node;
 };
 
 /**
