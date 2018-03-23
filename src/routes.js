@@ -12,7 +12,8 @@ export const routes = {
   },
   home: {
     url: '/',
-    redirectToRoute: 'login',
+    redirectUnauthorizedToRoute: 'login',
+    redirectAuthorizedToRoute: 'orders',
   },
   login: {
     url: '/login',

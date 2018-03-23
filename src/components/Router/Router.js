@@ -2,6 +2,7 @@ import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
 import * as Obj from '../../utils/object.js';
 import * as Url from '../../utils/url.js';
+import {Auth} from '../../services/Auth';
 
 /**
  * Class representing app router.
@@ -60,6 +61,14 @@ export default class Router extends Component {
       }
       if (nextRoute.redirectToRoute) {
         this.navigateToRoute(nextRoute.redirectToRoute);
+        return;
+      }
+      if (nextRoute.redirectUnauthorizedToRoute && !Auth.isAuthorized()) {
+        this.navigateToRoute(nextRoute.redirectUnauthorizedToRoute);
+        return;
+      }
+      if (nextRoute.redirectAuthorizedToRoute && Auth.isAuthorized()) {
+        this.navigateToRoute(nextRoute.redirectAuthorizedToRoute);
         return;
       }
       console.log(nextRoute);

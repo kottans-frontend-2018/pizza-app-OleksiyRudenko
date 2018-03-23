@@ -1,6 +1,7 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
 import * as auth from '../../utils/auth.js';
+import {Auth} from "../../services/Auth";
 
 /**
  * Class representing user logout.
@@ -31,6 +32,10 @@ export default class Logout extends Component {
    * @param {Event} ev
    */
   handleLogoutAction(ev) {
-    auth.logout();
+    ev.preventDefault();
+    Auth.logout();
+    if (this.props.routeProps.navigateOnSuccessToMethod) {
+      this.props.routeProps.navigateOnSuccessToMethod(this.props.routeProps.navigateOnSuccessToRoute);
+    }
   }
 }

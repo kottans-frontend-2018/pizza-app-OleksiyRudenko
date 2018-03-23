@@ -3,7 +3,7 @@ class APIService {
     if (endPoint.length && endPoint[endPoint.length-1]!=='/') endPoint += '/';
     this.endPoint = endPoint;
     this.APIOwner = 'https://github.com/lempiy/Kottans-Pizza-Api/';
-    if (!window.localStorage.token) window.localStorage.token = null;
+    if (!this._getToken()) this._setToken(null);
   }
 
   // ====== API methods
@@ -59,7 +59,7 @@ class APIService {
       this._setToken(result.token);
       console.log('API.login(): responded', result);
       return result;
-    }).catch(error => Promise.reject(error));
+    }).catch(rejection => Promise.reject(rejection));
   }
 
   /**
@@ -288,11 +288,11 @@ class APIService {
   }
 
   _getToken() {
-    return window.localStorage.token;
+    return JSON.parse(window.localStorage.token);
   }
 
-  _setToken() {
-    window.localStorage.token = null;
+  _setToken(value) {
+    window.localStorage.token = JSON.stringify(value);
   }
 }
 

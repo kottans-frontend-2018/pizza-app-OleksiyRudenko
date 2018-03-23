@@ -1,8 +1,6 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
-import * as Obj from '../../utils/object.js';
 import './style.css';
-import * as auth from "../../utils/auth.js";
 import {Auth} from "../../services/Auth";
 import {API} from "../../services/API";
 
@@ -161,8 +159,8 @@ export default class Register extends Component {
           this.props.routeProps.navigateOnSuccessToMethod(this.props.routeProps.navigateOnSuccessToRoute, 'Registered successfully', 'success');
         }, 1500);
       }
-    }).catch(rejection =>
-      rejection.then(rejection => {
+    }).catch(rejectionPromise =>
+      rejectionPromise.then(rejection => {
         console.log('Register.handleSubmitAction() rejected: ', rejection);
         this.resultMessage(rejection.error + (rejection.validations ? '<div>' + rejection.validations.join('</div><div>') + '</div>' : ''), 'error');
         // clean up inputs and focus on username input
@@ -181,9 +179,9 @@ export default class Register extends Component {
   resultMessage(message ='', type = 'success') {
     const classToAdd = 'register-' + type;
     const classToRemove = 'register-' + (type === 'success' ? 'error' : 'success');
-    const registerResultElement = document.getElementById('register-result');
-    registerResultElement.classList.remove(classToRemove);
-    registerResultElement.classList.add(classToAdd);
-    registerResultElement.innerHTML = message;
+    const resultMessageElement = document.getElementById('register-result');
+    resultMessageElement.classList.remove(classToRemove);
+    resultMessageElement.classList.add(classToAdd);
+    resultMessageElement.innerHTML = message;
   }
 }

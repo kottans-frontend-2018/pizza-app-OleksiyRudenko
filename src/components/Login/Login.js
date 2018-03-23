@@ -1,6 +1,6 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
-import * as auth from '../../utils/auth.js';
+import {Auth} from "../../services/Auth";
 import './style.css';
 
 /**
@@ -11,6 +11,7 @@ export default class Login extends Component {
     super(props);
     this.host = dom.createElement();
     dom.bindHandlers(this, 'handleSubmitAction');
+    console.log('Login: ', this.props);
   }
 
   /**
@@ -54,21 +55,34 @@ export default class Login extends Component {
     let username, password;
     [username, password] = [ ev.target.elements['login-username'].value.trim(),
       ev.target.elements['login-password'].value.trim() ];
-    const loginResultElement = document.getElementById('login-result');
-    auth.login(username, password).then( loginResult => {
-        loginResultElement.classList.add('login-success');
-        loginResultElement.classList.remove('login-error');
-        loginResultElement.innerHTML = 'Logged in successfully';
-        // save token and navigate to navigateOnSuccessTo
-        // TODO: save token and navigate to navigateOnSuccessTo
-      }).catch( loginResult => {
-        loginResultElement.classList.remove('login-success');
-        loginResultElement.classList.add('login-error');
-        loginResultElement.innerHTML = loginResult.error;
+    Auth.login(username, password).then(loginResult => {
+      this.resultMessage('Logged in successfully');
+      if (this.props.routeProps.navigateOnSuccessToMethod) {
+        setTimeout(() => {
+          this.props.routeProps.navigateOnSuccessToMethod(this.props.routeProps.navigateOnSuccessToRoute);
+        }, 1500);
+      }
+    }).catch(rejectionPromise => rejectionPromise.then(rejection => {
+      this.resultMessage(rejection.error, 'error');
         // clean up inputs and focus on username input
         const els = ['login-username', 'login-password'].map(elId => document.getElementById(elId));
         els.forEach(el => el.value = '');
         els[0].focus();
-    });
+    }));
   }
+
+  /**
+   * Shows error or success message
+   * @param {string} message
+   * @param {string} type
+   */
+  resultMessage(message ='', type = 'success') {
+    const classToAdd = 'login-' + type;
+    const classToRemove = 'login-' + (type === 'success' ? 'error' : 'success');
+    const resultMessageElement = document.getElementById('login-result');
+    resultMessageElement.classList.remove(classToRemove);
+    resultMessageElement.classList.add(classToAdd);
+    resultMessageElement.innerHTML = message;
+  }
+
 }
