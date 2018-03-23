@@ -20,7 +20,7 @@ export default class Router extends Component {
     };
     console.log('Router:');
     console.log(props);
-    dom.bindHandlers(this, 'handleUrlChange', 'navigateToUrl');
+    dom.bindHandlers(this, 'handleUrlChange', 'navigateToUrl', 'navigateToRoute');
     if (!this.path) {
       this.navigateToRoute('home');
     }
@@ -64,6 +64,9 @@ export default class Router extends Component {
       }
       console.log(nextRoute);
       const params = Url.extractUrlParams(nextRoute.url, path);
+      if (nextRoute.navigateOnSuccessToRoute) {
+        nextRoute.navigateOnSuccessToMethod = this.navigateToRoute;
+      }
       this.updateState({
         activeComponent: new nextRoute.component({
           host: this.host,
@@ -88,8 +91,10 @@ export default class Router extends Component {
   /**
    * Navigate to a given route. Puts past route on history
    * @param {string} routeName name
+   * @param {string} message - optional message that target route component may use
+   * @param {string} messageClass - optional message class (e.g. alert or success)
    */
-  navigateToRoute(routeName) {
+  navigateToRoute(routeName, message = null, messageClass = null) {
     if (this.state.currentRoute) {
       this.state.previousRoute = this.state.currentRoute;
       // next may be used by such features like Login to bring user back to the point he was rejected from

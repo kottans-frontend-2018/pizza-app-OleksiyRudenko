@@ -13,6 +13,12 @@
     --color-light-xparent:    rgba(187, 187, 187, 0.8);
     --color-lightest-xparent: rgba(238, 238, 238, 0.8);
     --color-white-xparent:    rgba(255, 255, 255, 0.6);
+
+    --color-alert: #d00;
+    --color-alert-accent: #600;
+
+    --color-success: #0d0;
+    --color-success-accent: #060;
 }
 
 html {
@@ -130,5 +136,37 @@ input[type="email"]:required:valid + label.validity::before {
 
 button {
     color: var(--color-lightest);
+    font-weight: bolder;
+}
+
+button.real-submit {
+    color: var(--color-lightest);
+    background-color: var(--color-accent);
+}
+
+button:disabled {
+    background-color: var(--color-light);
+    cursor: default;
+}
+
+/* Message colouring */
+
+.alert {
+    color: var(--color-alert);
+    font-weight: bold;
+}
+
+.alert a {
+    color: var(--color-alert-accent);
+    font-weight: bolder;
+}
+
+.success {
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+.success a {
+    color: var(--color-success-accent);
     font-weight: bolder;
 }
