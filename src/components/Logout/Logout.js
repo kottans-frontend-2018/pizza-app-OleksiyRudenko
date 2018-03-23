@@ -1,6 +1,5 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
-import * as auth from '../../utils/auth.js';
 import {Auth} from "../../services/Auth";
 
 /**
