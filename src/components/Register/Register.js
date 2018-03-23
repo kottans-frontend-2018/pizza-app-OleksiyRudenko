@@ -159,16 +159,14 @@ export default class Register extends Component {
           this.props.routeProps.navigateOnSuccessToMethod(this.props.routeProps.navigateOnSuccessToRoute, 'Registered successfully', 'success');
         }, 1500);
       }
-    }).catch(rejectionPromise =>
-      rejectionPromise.then(rejection => {
-        console.log('Register.handleSubmitAction() rejected: ', rejection);
-        this.resultMessage(rejection.error + (rejection.validations ? '<div>' + rejection.validations.join('</div><div>') + '</div>' : ''), 'error');
-        // clean up inputs and focus on username input
-        const els = ['register-username', 'register-password1', 'register-password2', 'register-email', 'register-store_password'].map(elId => document.getElementById(elId));
-        els.forEach(el => el.value = '');
-        els[0].focus();
-      })
-    );
+    }).catch(rejection => {
+      console.log('Register.handleSubmitAction() rejected: ', rejection);
+      this.resultMessage(rejection.error + (rejection.validations ? '<div>' + rejection.validations.join('</div><div>') + '</div>' : ''), 'error');
+      // clean up inputs and focus on username input
+      const els = ['register-username', 'register-password1', 'register-password2', 'register-email', 'register-store_password'].map(elId => document.getElementById(elId));
+      els.forEach(el => el.value = '');
+      els[0].focus();
+    });
   }
 
   /**

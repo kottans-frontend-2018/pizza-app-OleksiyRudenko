@@ -62,13 +62,13 @@ export default class Login extends Component {
           this.props.routeProps.navigateOnSuccessToMethod(this.props.routeProps.navigateOnSuccessToRoute);
         }, 1500);
       }
-    }).catch(rejectionPromise => rejectionPromise.then(rejection => {
+    }).catch(rejection => {
       this.resultMessage(rejection.error, 'error');
-        // clean up inputs and focus on username input
-        const els = ['login-username', 'login-password'].map(elId => document.getElementById(elId));
-        els.forEach(el => el.value = '');
-        els[0].focus();
-    }));
+      // clean up inputs and focus on username input
+      const els = ['login-username', 'login-password'].map(elId => document.getElementById(elId));
+      els.forEach(el => el.value = '');
+      els[0].focus();
+    });
   }
 
   /**

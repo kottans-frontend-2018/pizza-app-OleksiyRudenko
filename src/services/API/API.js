@@ -19,7 +19,7 @@ class APIService {
         success: true,
         list: result,
       };
-    }).catch(error => Promise.reject(error));
+    });
   }
 
   // ------ USERS
@@ -41,7 +41,7 @@ class APIService {
     return this._post('user/create', registrationData, false).then(result => {
       console.log('API.createUser(): responded', result);
       return result;
-    }).catch(rejection => Promise.reject(rejection));
+    });
   }
 
   /**
@@ -58,7 +58,7 @@ class APIService {
       this._setToken(result.token);
       console.log('API.login(): responded', result);
       return result;
-    }).catch(rejection => Promise.reject(rejection));
+    });
   }
 
   /**
@@ -71,7 +71,7 @@ class APIService {
       return Object.assign({
         success: true,
       }, result)
-    }).catch(error => Promise.reject(error));
+    });
   }
 
   /**
@@ -97,7 +97,7 @@ class APIService {
       return Object.assign({
         success: true
       }, result);
-    }).catch(error => Promise.reject(error));
+    });
   }
 
   /**
@@ -117,7 +117,7 @@ class APIService {
     return this._post('pizza/create',pizzaProps).then(result => {
       console.log('API.createPizza(): responded', result);
       return result;
-    }).catch(error => Promise.reject(error));
+    });
   }
 
   // ------ INGREDIENT
@@ -136,7 +136,7 @@ class APIService {
       return Object.assign({
         success: true
       }, result);
-    }).catch(error => Promise.reject(error));
+    });
   }
 
   // ------ TAG
@@ -155,7 +155,7 @@ class APIService {
       return Object.assign({
         success: true
       }, result);
-    }).catch(error => Promise.reject(error));
+    });
   }
 
   // ====== Core private methods
@@ -178,16 +178,12 @@ class APIService {
     if (urlParams.toString().length) {
       resource += '?' + urlParams;
     }
-    return (isAuthRequired && !this._getToken()) ?
-      new Promise((resolve, reject) => {
-        reject({
-          success: false,
-          error: 'Authorization required',
-        })
-      }) :
-      this._request('get', resource, {
-        headers: this._headers({}, isAuthRequired)
-      }).then(result => result).catch(rejection => Promise.reject(rejection));
+    return (isAuthRequired && !this._getToken()) ? Promise.reject({
+      success: false,
+      error: 'Authorization required',
+    }) : this._request('get', resource, {
+      headers: this._headers({}, isAuthRequired)
+    });
   }
 
   /**
@@ -195,23 +191,17 @@ class APIService {
    * @param {string} resource
    * @param {*} data
    * @param {boolean} isAuthRequired
-   * @returns {Promise<any>}
+   * @returns {Promise}
    * @private
    */
   _post(resource, data, isAuthRequired = true) {
-    if (isAuthRequired && !this._getToken()) {
-      return new Promise((resolve, reject) => {
-        reject({
-          success: false,
-          error: 'Authorization required',
-        })
-      });
-    }
-    const request = {
+    return (isAuthRequired && !this._getToken()) ? Promise.reject({
+      success: false,
+      error: 'Authorization required',
+    }) : this._request('post', resource, {
       body: JSON.stringify(data),
       headers: this._headers({}, isAuthRequired),
-    };
-    return this._request('post', resource, request);
+    });
   }
 
   /**
@@ -219,7 +209,7 @@ class APIService {
    * @param {string} method
    * @param {string} resource
    * @param {object} params
-   * @returns {Promise<any>}
+   * @returns {Promise}
    * @private
    */
   _request(method, resource, params = {}) {
@@ -234,16 +224,23 @@ class APIService {
     }, params);
     console.log('API._request: requested', url, params);
     return fetch(url, params).then(response => {
+      const contentType = response.headers.get("content-type");
+      const contentTypeIsJSON = !!(contentType && contentType.includes("application/json"));
       console.log('API._request: responded', response);
       if (!response.ok) {
         console.log('API._request: NOT OK', response.status, response.statusText);
-        return Promise.reject(response.json());
+        if (contentTypeIsJSON) {
+          return response.json().then(json => Promise.reject(json));
+        } else throw {
+          success: false,
+          error: response.status + ': ' + response.statusText,
+        };
       }
-      return /* (params.raw) ? response : */ response.json();
+      return contentTypeIsJSON ? response.json() : response;
     }).catch(rejection => {
-      // console.log('API._request: rejection Before', rejection);
+      console.log('API._request: rejection Before', rejection);
       // Error => {success:false, error:'...'}
-      if (!rejection.success === false) {
+      if (rejection.success !== false) {
         rejection = {
           success: false,
           serverError: true,
@@ -251,7 +248,7 @@ class APIService {
         };
       }
       console.log('API._request: rejection', rejection);
-      return Promise.reject(rejection);
+      throw rejection;
     });
   }
 
@@ -292,10 +289,11 @@ class APIService {
 
   _setToken(value = null) {
     if (value === null) {
-      window.localStorage.removeItem('token',JSON.stringify(value));
+      window.localStorage.removeItem('token');
     } else {
       window.localStorage.setItem('token',JSON.stringify(value));
     }
+    return value;
   }
 }
 
