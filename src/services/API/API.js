@@ -3,7 +3,6 @@ class APIService {
     if (endPoint.length && endPoint[endPoint.length-1]!=='/') endPoint += '/';
     this.endPoint = endPoint;
     this.APIOwner = 'https://github.com/lempiy/Kottans-Pizza-Api/';
-    if (!this._getToken()) this._setToken(null);
   }
 
   // ====== API methods
@@ -288,12 +287,15 @@ class APIService {
   }
 
   _getToken() {
-    if (!window.localStorage.token) return null;
-    return JSON.parse(window.localStorage.token);
+    return JSON.parse(window.localStorage.getItem('token'));
   }
 
-  _setToken(value) {
-    window.localStorage.token = JSON.stringify(value);
+  _setToken(value = null) {
+    if (value === null) {
+      window.localStorage.removeItem('token',JSON.stringify(value));
+    } else {
+      window.localStorage.setItem('token',JSON.stringify(value));
+    }
   }
 }
 
