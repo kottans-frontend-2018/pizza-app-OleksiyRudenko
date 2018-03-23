@@ -288,6 +288,7 @@ class APIService {
   }
 
   _getToken() {
+    if (!window.localStorage.token) return null;
     return JSON.parse(window.localStorage.token);
   }
 
