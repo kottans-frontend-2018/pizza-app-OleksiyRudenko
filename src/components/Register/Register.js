@@ -63,7 +63,7 @@ export default class Register extends Component {
       <button type="submit" class="register-hidden" id="register-default-submit">You should not see me</button>
     </form>
     <div>Have already got an account?</div>
-    <a href="#/login">Login</a>
+    <a href="#${this.props.routeProps.routes.login.url}">${this.props.routeProps.routes.login.name}</a>
     <hr/>
     <a href="#/${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}">Random link</a>
     `, node => {

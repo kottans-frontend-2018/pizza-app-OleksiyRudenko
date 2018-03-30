@@ -80,7 +80,7 @@ export const toDOM = (string, onReady) => {
  * @param {string|HTMLCollection|Node|[Node...]|DocumentFragment} children
  * @param {onNodeReady} onReady to call when elements from string are rendered
  */
-export const setChildren = (node, children, onReady) => {
+export const setChildren = (node, children, onReady = null) => {
   if (typeof children === 'string') {
     toDOM(children, fragment => _setChildren(node, fragment, onReady));
   } else {
@@ -94,13 +94,13 @@ export const setChildren = (node, children, onReady) => {
  * @param {HTMLCollection|Node|[Node...]|DocumentFragment} children
  * @param {onNodeReady} onReady to call when elements appended
  */
-export const _setChildren = (node, children, onReady) => {
+export const _setChildren = (node, children, onReady = null) => {
   if (children === '[object HTMLCollection]') {
     children = Array.from(children);
   }
   node = clearChildren(node);
   if (Array.isArray(children)) {
-    children.forEach(el => node.appendChild(el));
+    children.forEach(child => typeof child === 'string' ? toDOM(child, fragment => node.appendChild(fragment)) : node.appendChild(child));
   } else {
     node.appendChild(children);
   }

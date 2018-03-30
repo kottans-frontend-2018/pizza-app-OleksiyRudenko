@@ -12,12 +12,8 @@ export default class Secret extends Component {
       tag: 'div',
       id: 'secret-container',
     });
-    this.state = {
-      links: this.props.routing.routes,
-    };
     console.log(this.name);
     console.log(this.props);
-    console.log(this.state);
   }
 
   /**
@@ -31,7 +27,7 @@ export default class Secret extends Component {
       classList: ['shaded-content-container', 'column'],
     });
 
-    const links = Obj.map(this.state.links, ({url},name) => {
+    const links = Obj.map(this.props.routeProps.routes, ({url, name}, routeName) => {
       if (url.search(':id') >= 0 ) {
         url = url.replace(':id', Math.floor(Math.random() * 100) + 1);
       }

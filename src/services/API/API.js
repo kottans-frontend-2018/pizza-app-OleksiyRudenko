@@ -284,14 +284,14 @@ class APIService {
   }
 
   _getToken() {
-    return JSON.parse(window.localStorage.getItem('token'));
+    return window.localStorage.getItem('token');
   }
 
   _setToken(value = null) {
     if (value === null) {
       window.localStorage.removeItem('token');
     } else {
-      window.localStorage.setItem('token',JSON.stringify(value));
+      window.localStorage.setItem('token',value);
     }
     return value;
   }

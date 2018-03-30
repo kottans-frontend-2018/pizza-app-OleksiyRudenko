@@ -40,7 +40,7 @@ export default class Login extends Component {
       </div>
       <button type="submit" id="login-submit">Sign in!</button>
     </form>
-    <a href="#/register">Register</a>
+    <a href="#${this.props.routeProps.routes.register.url}">${this.props.routeProps.routes.register.name}</a>
     <a href="#/${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}">Random link</a>
     `;
     return container;

@@ -18,6 +18,7 @@ export default class Router extends Component {
       previousRoute: null,
       previousRestrictedRoute: null,
       activeComponent: null,
+      layoutManager: props.layoutManager,
     };
     console.log('Router:');
     console.log(props);
@@ -76,10 +77,18 @@ export default class Router extends Component {
       if (nextRoute.navigateOnSuccessToRoute) {
         nextRoute.navigateOnSuccessToMethod = this.navigateToRoute;
       }
+      if (nextRoute.routes && Array.isArray(nextRoute.routes)) nextRoute.routes = nextRoute.routes.reduce((accum, routeName) => {
+        accum[routeName] = {
+          name: this.state.routes[routeName].name,
+          url: this.state.routes[routeName].url,
+        };
+        return accum;
+      }, {});
+
       this.updateState({
         activeComponent: new nextRoute.component({
           host: this.host,
-          routing: this.state,
+          // routing: this.state,
           routeProps: nextRoute,
           params: params,
         }),
@@ -127,8 +136,13 @@ export default class Router extends Component {
    * @returns {*|HTMLElement|string}
    */
   render() {
-    const { activeComponent } = this.state;
-    return activeComponent && activeComponent.render();
+    console.log(this.name + '.render()', this.state);
+    const { activeComponent, currentRoute, layoutManager } = this.state;
+    const rendered = currentRoute.layout ? layoutManager.updateState({
+      mainComponent: activeComponent,
+    }) : activeComponent && activeComponent.render();
+    console.log(this.name + '.render() out with', rendered);
+    return rendered;
   }
 
 }
