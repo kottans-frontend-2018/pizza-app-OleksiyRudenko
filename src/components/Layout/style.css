@@ -84,6 +84,7 @@ footer {
 }
 
 .layout-logout {
+    display: inline-block;
     border-color: var(--color-light);
     border-style: solid;
     border-width: 0.1rem;
@@ -96,6 +97,14 @@ footer {
 }
 
 @media screen and (max-width: 460px) {
+    #layout-logo {
+        left: 6rem;
+        /* -webkit-transform: translateX(0);
+        transform: translateX(0); */
+    }
+}
+
+@media screen and (max-width: 280px) {
     #layout-logo {
         display: none;
     }
