@@ -74,10 +74,6 @@ footer {
     transform: translateX(-50%);
 }
 
-.layout-header-button {
-    margin: 0;
-}
-
 /* Specific elements */
 
 #layout-logo {
@@ -87,10 +83,16 @@ footer {
     height: 45px;
 }
 
-.layout-header-button {
+.layout-logout {
     border-color: var(--color-light);
+    border-style: solid;
+    border-width: 0.1rem;
+    border-radius: 0.25rem;
     background-color: var(--color-dark);
     color: var(--color-light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.5rem;
 }
 
 @media screen and (max-width: 460px) {

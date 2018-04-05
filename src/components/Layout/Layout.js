@@ -30,10 +30,10 @@ export default class Layout extends Component {
           <div id="layout-logo" class="layout-abs-center" title="Pizza Line logo"></div>
           <time id="layout-current-time" class="layout-clock" datetime="2018-01-31 00:00">00:00:00</time>
           <div id="layout-signout">
-              <button type="button" class="layout-header-button">
+              <a href="#/logout" class="layout-logout">
                   <i class="fas fa-user-secret"></i>
                   Sign Out
-              </button>
+              </a>
           </div>
         </div>
     </header>
