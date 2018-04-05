@@ -4,6 +4,7 @@ import Register from './components/Register';
 import Secret from './components/Secret';
 import Order from './components/Order';
 import Orders from './components/Orders';
+import PizzaEditor from './components/PizzaEditor';
 
 export const routes = {
   none: {
@@ -49,10 +50,17 @@ export const routes = {
     redirectUnauthorizedToRoute: 'login',
     component: Order,
   },
+  add: {
+    name: 'Add pizza',
+    url: '/add',
+    redirectUnauthorizedToRoute: 'login',
+    layout: true, // use Layout component
+    component: PizzaEditor,
+  },
   secret: {
     url: '/secret',
     component: Secret,
-    routes: ['home', 'login', 'register', 'orders', 'order'],
+    routes: ['home', 'login', 'register', 'orders', 'order', 'add'],
   },
 };
 
