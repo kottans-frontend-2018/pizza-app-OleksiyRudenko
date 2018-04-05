@@ -14,24 +14,27 @@ export default class Logout extends Component {
 
   /**
    * Renders component view.
-   * @returns {HTMLElement}
+   * @returns {HTMLElement|string}
    */
   render() {
+    this.handleLogoutAction();
+    return '';
+    /*
     const container = dom.createElement({
       tag: 'div',
       id: 'logout-container',
     });
     container.addEventListener('click', this.handleLogoutAction);
     container.innerHTML = `<a href="#/logout">Sign out</a>`;
-    return container;
+    return container; */
   }
 
   /**
    * Handles logout user action.
    * @param {Event} ev
    */
-  handleLogoutAction(ev) {
-    ev.preventDefault();
+  handleLogoutAction(ev = null) {
+    ev && ev.preventDefault();
     Auth.logout();
     if (this.props.routeProps.navigateOnSuccessToMethod) {
       this.props.routeProps.navigateOnSuccessToMethod(this.props.routeProps.navigateOnSuccessToRoute);
