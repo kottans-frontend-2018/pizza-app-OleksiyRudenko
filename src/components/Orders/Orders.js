@@ -26,6 +26,7 @@ export default class Orders extends Component {
 
     container.innerHTML = `
       <a href="#/add" class="orders-addpizza"><i class="fas fa-plus"></i></a>
+      <h2>No pizzas yet in the queue. Add one by clicking (+) below</h2>
       <!-- h2>Current orders</h2>
       <div>cccccc</div>
       <div>cccccc</div>

@@ -5,6 +5,8 @@ a.orders-addpizza {
     height: 3rem;
     width: 3rem;
     background-color: var(--color-success-accent);
+    border-color: var(--color-success-accent);
+    border-width: 0.1rem;
     border-radius: 1.5rem;
     text-decoration: none;
     color: var(--color-lightest);
@@ -12,4 +14,10 @@ a.orders-addpizza {
     font-size: 1.5rem;
     text-align: center;
     line-height: 3rem;
+}
+
+a.orders-addpizza:hover {
+    border-color: var(--color-success);
+    outline: none;
+    box-shadow: 0 0 1rem var(--color-success);
 }
