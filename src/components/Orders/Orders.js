@@ -8,16 +8,13 @@ import './style.css';
 export default class Orders extends Component {
   constructor(props) {
     super(props);
-    this.host = dom.createElement({
-      tag: 'div',
-      id: 'orders-voidcontainer',
-    });
     this.state = {
       id: props.id,
     };
   }
 
   render() {
+    console.log(this.name +'.render() in having this.host', this.host);
     const container = dom.createElement({
       tag: 'div',
       id: 'orders-container',
@@ -121,6 +118,7 @@ export default class Orders extends Component {
       <hr/>
       <a href="#/">Home</a>
       <a href="#/${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}">Random link</a>`;
+    console.log(this.name +'.render() out returning', container);
     return container;
   }
 }

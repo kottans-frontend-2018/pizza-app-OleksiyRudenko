@@ -8,10 +8,15 @@ import './style.css';
 export default class Layout extends Component {
   constructor(props) {
     super(props);
-    this.host = dom.createElement({
-      id: 'layout-supercontainer',
-    });
+    this.prerendered = this.preRender();
     console.log('Layout: ', this.props);
+  }
+
+  updateChildrenState() {
+    console.log(this.name +'.updateChildrenState() in having this.state.mainComponent', this.state.mainComponent);
+    this.state.mainComponent.host = this.prerendered.main;
+    this.state.mainComponent.updateState();
+    console.log(this.name +'.updateChildrenState() out returning nothing');
   }
 
   /**
@@ -19,14 +24,33 @@ export default class Layout extends Component {
    * @returns {HTMLElement}
    */
   render() {
-    console.log('Layout.render() in having ', this.state);
+    return this.prerendered.fragment;
+  }
+
+  /**
+   * PreRenders component view.
+   * @returns {object} {fragment, elements...}
+   */
+  preRender() {
+    console.log(this.name + '.preRender() in having ', this.state);
+    const prerendered = {};
     const container = dom.createElement({
       tag: 'div',
       id: 'layout-container',
       classList: ['column'],
     });
-    dom.setChildren(container, `<header>
-        <div class="layout-optimal-width-container layout-row layout-header">
+
+    const mainSection = dom.createElement({
+      tag: 'main',
+      id: 'layout-main',
+      // classList: ['shaded-content-container', 'column'],
+    });
+
+    prerendered.main = mainSection;
+
+    dom.setChildren(container, [ dom.createElement({
+      tag: 'header',
+      innerHTML: `<div class="layout-optimal-width-container layout-row layout-header">
           <div id="layout-logo" class="layout-abs-center" title="Pizza Line logo"></div>
           <time id="layout-current-time" class="layout-clock" datetime="2018-01-31 00:00">00:00:00</time>
           <div id="layout-signout">
@@ -35,41 +59,22 @@ export default class Layout extends Component {
                   Sign Out
               </a>
           </div>
-        </div>
-    </header>
-    `, node => {
-      console.log('Layout.render() has formed ', container , 'receiving', node);
-      console.log('Layout.render() will embed outcome from', this.state.mainComponent);
-      const mainComponentView = this.state.mainComponent.render();
-      console.log('...which is', mainComponentView);
-      const mainSection = dom.createElement({
-        tag: 'main',
-        id: 'layout-main',
-        // classList: ['shaded-content-container', 'column'],
-      });
-      mainSection.appendChild(mainComponentView);
-      node.appendChild(mainSection);
-      const footer = dom.createElement({
-        tag: 'footer',
-      });
-      footer.innerHTML = `
-          <div>
+        </div>`,
+    }), mainSection, dom.createElement({
+      tag: 'footer',
+      innerHTML: `<div>
               <address class="layout-row"><div id="office-address">Kottans, Kottans Str.1</div>
                   <div>tel: <a href="tel:57778887">577-788-87</a></div>
               </address>
           </div>
           <div class="layout-row" id="copyright">
               <div>Pizza Manager</div> <div>&copy; <span id="copy-year">2018</span></div>
-          </div>
-      `;
-      node.appendChild(footer);
-      /* console.log('Layout.render() injects ', mainComponentView);
-      dom.setChildren(node.getElementById('layout-main'), mainComponentView, node => {
-        console.log('Layout.render() has formed(2) ', container);
-      }); */
-      console.log('Layout.render() has formed(2) ', node);
+          </div>`,
+    })], node => {
+      console.log(this.name + '.preRender() has formed ', container , 'receiving', node);
     });
-    console.log('Layout.render() out with ', container);
-    return container;
+    prerendered.fragment = container;
+    console.log(this.name + '.preRender() out with ', prerendered);
+    return prerendered;
   }
 }

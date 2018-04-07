@@ -29,12 +29,13 @@ export default class ComponentBase {
    * Updates component's state. Internal method.
    * @param {object} nextState - state delta
    */
-  updateState(nextState) {
+  updateState(nextState = {}) {
     console.log('ComponentBase->' + this.name + '.updateState():in with nextState', nextState);
     this.state = Object.assign({}, this.state, nextState);
-    const rendered = this._render();
-    console.log('ComponentBase->' + this.name + '.updateState():out returning', rendered);
-    return rendered;
+    const renderedHost = this._render();
+    this.updateChildrenState();
+    console.log('ComponentBase->' + this.name + '.updateState():out returning', renderedHost);
+    return renderedHost;
   }
 
   /**
@@ -44,10 +45,11 @@ export default class ComponentBase {
    */
   update(nextProps) {
     console.log('ComponentBase->' + this.name + '.update():in with nextProps', nextProps);
-    this.props = nextProps;
-    const renderResult = this._render();
-    console.log('ComponentBase->' + this.name + '.update():out returning renderResult', renderResult);
-    return renderResult;
+    this.props = Object.assign(this.props, nextProps);
+    this.host = nextProps.host || this.host;
+    const renderedHost = this._render();
+    console.log('ComponentBase->' + this.name + '.update():out returning renderResult', renderedHost);
+    return renderedHost;
   }
 
   /**
@@ -80,6 +82,16 @@ export default class ComponentBase {
     console.log('ComponentBase->' + this.name + '.render():in');
     console.log('ComponentBase->' + this.name + '.render():out returning ""');
     return '';
+  }
+
+  /**
+   * Abstract method. Shall be implemented in custom component.
+   * Expected to return a set of Nodes|HTMLElements|string to be assigned to this.host.innerHTML or attached to this.host
+   * @override
+   */
+  updateChildrenState() {
+    console.log('ComponentBase->' + this.name + '.updateChildrenState():in');
+    console.log('ComponentBase->' + this.name + '.updateChildrenState():out returning nothing');
   }
 
   /**

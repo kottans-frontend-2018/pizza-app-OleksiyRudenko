@@ -8,10 +8,6 @@ import * as Obj from '../../utils/object.js';
 export default class Secret extends Component {
   constructor(props) {
     super(props);
-    this.host = dom.createElement({
-      tag: 'div',
-      id: 'secret-container',
-    });
     console.log(this.name);
     console.log(this.props);
   }

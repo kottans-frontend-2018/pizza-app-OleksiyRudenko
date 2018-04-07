@@ -10,7 +10,6 @@ import {API} from "../../services/API";
 export default class Register extends Component {
   constructor(props) {
     super(props);
-    this.host = dom.createElement();
     dom.bindHandlers(this, 'handleDefaultSubmitAction', 'handleRealSubmitAction', 'handlePasswordsMatch', 'handleRealSubmitAction');
     console.log('Register', this.props);
   }

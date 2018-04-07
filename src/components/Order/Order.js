@@ -8,10 +8,6 @@ import * as Obj from "../../utils/object";
 export default class Order extends Component {
   constructor(props) {
     super(props);
-    this.host = dom.createElement({
-      tag: 'div',
-      id: 'order-container',
-    });
     this.state = {
       id: this.props.params.id,
     };

@@ -9,7 +9,6 @@ import './style.css';
 export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.host = dom.createElement();
     dom.bindHandlers(this, 'handleSubmitAction');
     console.log('Login: ', this.props);
   }

@@ -18,8 +18,8 @@ export default class Router extends Component {
       previousRoute: null,
       previousRestrictedRoute: null,
       activeComponent: null,
-      layoutManager: props.layoutManager,
     };
+    this.layoutManager = props.layoutManager;
     console.log('Router:');
     console.log(props);
     dom.bindHandlers(this, 'handleUrlChange', 'navigateToUrl', 'navigateToRoute');
@@ -85,13 +85,20 @@ export default class Router extends Component {
         return accum;
       }, {});
 
+      const activeComponent = new nextRoute.component({
+        host: this.host,
+        routeProps: nextRoute,
+        params: params,
+      });
+
+      if (nextRoute.layout) {
+        this.layoutManager.updateState({
+          mainComponent: activeComponent,
+        });
+      }
+
       this.updateState({
-        activeComponent: new nextRoute.component({
-          host: this.host,
-          // routing: this.state,
-          routeProps: nextRoute,
-          params: params,
-        }),
+        activeComponent: activeComponent,
         currentRoute: nextRoute,
         currentPath: path,
       });
@@ -137,10 +144,13 @@ export default class Router extends Component {
    */
   render() {
     console.log(this.name + '.render()', this.state);
-    const { activeComponent, currentRoute, layoutManager } = this.state;
+    const { activeComponent, currentRoute } = this.state;
+    const layoutManager = this.layoutManager;
+    /*
     const rendered = currentRoute.layout ? layoutManager.updateState({
       mainComponent: activeComponent,
-    }) : activeComponent && activeComponent.render();
+    }) : activeComponent && activeComponent.render(); */
+    const rendered = currentRoute.layout ? layoutManager.render() : activeComponent && activeComponent.render();
     console.log(this.name + '.render() out with', rendered);
     return rendered;
   }

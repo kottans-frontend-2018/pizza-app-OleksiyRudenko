@@ -8,7 +8,6 @@ import {Auth} from "../../services/Auth";
 export default class Logout extends Component {
   constructor(props) {
     super(props);
-    this.host = dom.createElement();
     dom.bindHandlers(this, 'handleLogoutAction');
   }
 
