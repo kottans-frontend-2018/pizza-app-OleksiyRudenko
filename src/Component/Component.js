@@ -1,6 +1,6 @@
 /**
  * View component.
- * Rendering target expected at this.host.
+ * Rendering target expected at this.host, which is to be supplied by a parent component / calling context.
  * The workflow:
  * 1. Set up component (this.host|state|props}
  * 2. Do job or bind handlers
@@ -8,7 +8,9 @@
  * {@link updateState} updates state and calls {@link _render}
  * {@link _render} calls overridden {@link render) and replaces this.hist.innerHTML with result from render()
  *
- * {@link render} will create HTMLElement(s)|DocumentFragment and may call and embed children[].render()
+ * {@link render} will create HTMLElement|HTMLElement[]|DocumentFragment|string and may manage children components:
+ * - call and embed children[].render() or
+ * - children[].updateState()
  */
 export default class ComponentBase {
   /**
@@ -71,6 +73,7 @@ export default class ComponentBase {
 
   /**
    * Abstract method. Shall be implemented in custom component.
+   * Expected to return a set of Nodes|HTMLElements|string to be assigned to this.host.innerHTML or attached to this.host
    * @override
    */
   render() {

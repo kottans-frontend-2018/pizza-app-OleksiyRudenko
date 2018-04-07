@@ -28,6 +28,7 @@ export default class PizzaEditor extends Component {
       <a href="#/order/${Math.floor(Math.random()*100)+1}">Random order</a>
       <hr/>
       <a href="#/">Home</a>
+      <a href="#/orders">Orders</a>
       <a href="#/${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}">Random link</a>`;
     return container;
   }
