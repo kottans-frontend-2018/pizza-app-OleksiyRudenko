@@ -1,7 +1,8 @@
 class APIService {
-  constructor({endPoint}) {
+  constructor({endPoint, assetBase}) {
     if (endPoint.length && endPoint[endPoint.length-1]!=='/') endPoint += '/';
     this.endPoint = endPoint;
+    this.assetBase = assetBase;
     this.APIOwner = 'https://github.com/lempiy/Kottans-Pizza-Api/';
   }
 
@@ -158,6 +159,11 @@ class APIService {
     });
   }
 
+  // ------ Assets
+  getAssetUrl(url) {
+    return this.assetBase + url;
+  }
+
   // ====== Core private methods
 
   /**
@@ -299,4 +305,5 @@ class APIService {
 
 export const API = new APIService({
   endPoint: 'https://pizza-tele.ga/api/v1/',
+  assets: 'https://pizza-tele.ga/',
 });
