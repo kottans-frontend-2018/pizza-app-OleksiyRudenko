@@ -30,6 +30,10 @@ class AuthService {
     return API.getStoreList();
   }
 
+  getIngredients() {
+    return API.getIngredientList();
+  }
+
   isAuthorized() {
     return !!API._getToken();
   }
