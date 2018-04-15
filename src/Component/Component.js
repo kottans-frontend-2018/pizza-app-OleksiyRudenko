@@ -20,7 +20,7 @@ export default class ComponentBase {
   constructor(props) {
     console.log('ComponentBase->' + this.name + '.constructor():in with props', props);
     this.props = props || {};
-    this.state = {};
+    this.state = props.state || {};
     this.host = props.host || null;
     console.log('ComponentBase->' + this.name + '.constructor():out returning nothing');
   }
