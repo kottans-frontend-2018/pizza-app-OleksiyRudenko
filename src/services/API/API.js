@@ -160,7 +160,7 @@ class APIService {
   }
 
   // ------ Assets
-  getAssetUrl(url) {
+  prependAssetUrl(url) {
     return this.assetBase + url;
   }
 
@@ -305,5 +305,5 @@ class APIService {
 
 export const API = new APIService({
   endPoint: 'https://pizza-tele.ga/api/v1/',
-  assets: 'https://pizza-tele.ga/',
+  assetBase: 'https://pizza-tele.ga/',
 });
