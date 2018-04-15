@@ -36,7 +36,7 @@ CANVAS.center = {
   y: Math.floor(CANVAS.px.height / 2),
 };
 Object.keys(CANVAS.areas).forEach(r => {
-  CANVAS.areas[r].maxRadius = Math.round(r * CANVAS.pxInch / 2 - r / 3);
+  CANVAS.areas[r].maxRadius = Math.round(r * CANVAS.pxInch / 2 - r / 3 - 5);
 });
 
 /* Build nodes (placeholders) for every radius at step 10px
