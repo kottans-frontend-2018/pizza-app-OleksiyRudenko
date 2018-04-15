@@ -106,7 +106,8 @@ input[type="email"]
 input[type="text"]::placeholder,
 input[type="month"]::placeholder,
 input[type="password"]::placeholder,
-input[type="email"]::placeholder {
+input[type="email"]::placeholder,
+textarea {
     font-size: 80%;
 }
 
@@ -179,4 +180,8 @@ button:disabled {
 .success a {
     color: var(--color-success-accent);
     font-weight: bolder;
+}
+
+.alert-background {
+    background-color: var(--color-alert-accent);
 }
