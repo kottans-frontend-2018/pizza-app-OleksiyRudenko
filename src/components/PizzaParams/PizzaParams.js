@@ -1,6 +1,7 @@
 import Component from '../../Component';
 import * as dom from '../../utils/dom.js';
 import {Auth} from '../../services/Auth';
+import './style.css';
 
 const PIZZA_SIZES = [30, 45, 60];
 
@@ -76,7 +77,7 @@ export default class PizzaParams extends Component {
     const container = dom.createElement({
       tag: 'form',
       id: 'pizzaConstructor-container',
-      classList: ['row-wrap'],
+      classList: ['pizzaParams-container'],
     });
 
     container.addEventListener('change', this.handleUserAction);

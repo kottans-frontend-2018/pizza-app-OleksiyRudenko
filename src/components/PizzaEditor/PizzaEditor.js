@@ -76,7 +76,10 @@ export default class PizzaEditor extends Component {
       classList: ['pizzaEditor-canvas'],
     });
     canvasContainer.appendChild(canvas);
-    const params = dom.createElement('div');
+    const params = dom.createElement({
+      tag: 'div',
+      classList: ['pizzaEditor-params'],
+    });
 
     dom.setChildren(container, [ canvasContainer, params ]);
 
