@@ -1,0 +1,15 @@
+.pizzaParams-container {
+    display: flex;
+    flex: 1;
+    flex-flow: column;
+    align-items: flex-start;
+}
+
+.pizzaParams-container > textarea {
+    width: 100%;
+    min-height: 2rem;
+}
+
+.pizzaParams-container > input[type="text"] {
+    width: 100%;
+}

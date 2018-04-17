@@ -1,5 +1,5 @@
 {
-  "name": "index",
+  "name": "pizza-app-kottans",
   "version": "0.0.1",
   "description": "Pizza App",
   "main": "index.html",
@@ -10,7 +10,13 @@
   "scripts": {
     "start": "parcel ./src/index.html --public-url ./",
     "watch": "parcel watch ./src/index.html --public-url ./",
+    "prebuild-dev": "node node.prebuild.js",
     "build-dev": "parcel build ./src/index.html --no-minify --public-url ./",
-    "build": "parcel build ./src/index.html --public-url ./"
+    "prebuild": "node node.prebuild.js",
+    "build": "parcel build ./src/index.html --public-url ./",
+    "push-gh-pages": "push-dir --dir=dist --branch=gh-pages --cleanup --verbose"
+  },
+  "devDependencies": {
+    "fs-extra": "^5.0.0"
   }
 }

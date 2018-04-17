@@ -1,0 +1,192 @@
+:root {
+    --color-darkest:  #333;
+    --color-dark:     #666;
+    --color-neutral:  #999;
+    --color-light:    #bbb;
+    --color-lightest: #eee;
+
+    --color-accent: #428bca;
+
+    --color-darkest-xparent:  rgba(51, 51, 51, 0.8);
+    --color-dark-xparent:     rgba(102, 102, 102, 0.8);
+    --color-neutral-xparent:  rgba(153, 153, 153, 0.8);
+    --color-light-xparent:    rgba(187, 187, 187, 0.8);
+    --color-lightest-xparent: rgba(238, 238, 238, 0.8);
+    --color-white-xparent:    rgba(255, 255, 255, 0.6);
+
+    --color-alert: #d00;
+    --color-alert-accent: #600;
+
+    --color-success: #0d0;
+    --color-success-accent: #060;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+html {
+    padding: 0;
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    background-color: var(--color-light);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-image: url(../assets/background/pizza-oven.jpg);
+    font-size: 100%;
+    padding: 0 0 0 0;
+    margin: 0;
+    color: var(--color-darkest);
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+body, p, h1, button {
+    font-family: -apple-system, BlinkMacSystemFont,
+        "Segoe UI",  Helvetica, Arial, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+form {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+hr {
+    width: 100%;
+}
+
+.shaded-content-container {
+    background-color: var(--color-white-xparent);
+    padding: 0.8rem 1rem 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+.column {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.row-wrap {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+/* UI controls */
+
+textarea {
+    margin: 0.5rem;
+    flex: 1;
+}
+
+input[type="text"],
+input[type="month"],
+input[type="password"],
+input[type="email"]
+{
+    position: relative;
+    padding-left: 0.5rem;
+    padding-right: 1.85rem;
+    /* border: 0.06rem solid #e6e8ee;
+    border-radius: 0.25rem;
+    color: #6e768f;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding-left: 0.5ex;
+    padding-right: 3ex; */
+}
+
+input[type="text"]::placeholder,
+input[type="month"]::placeholder,
+input[type="password"]::placeholder,
+input[type="email"]::placeholder,
+textarea {
+    font-size: 80%;
+}
+
+input[type="text"]:required + label.validity,
+input[type="password"]:required + label.validity,
+input[type="email"]:required + label.validity {
+    display: inline-block;
+    position: relative;
+}
+
+
+input[type="text"]:required:invalid + label.validity::before,
+input[type="password"]:required:invalid + label.validity::before,
+input[type="email"]:required:invalid + label.validity::before {
+    position: absolute;
+    color: Red;
+    font-family: Font Awesome\ 5 Free;
+    font-weight: 900;
+    content: '\f057';
+    font-size: 140%;
+    right: 1.1rem;
+    top: -1.1rem;
+}
+
+input[type="text"]:required:valid + label.validity::before,
+input[type="password"]:required:valid + label.validity::before,
+input[type="email"]:required:valid + label.validity::before {
+    position: absolute;
+    color: #76a7e1;
+    font-family: Font Awesome\ 5 Free;
+    font-weight: 900;
+    content: '\f058';
+    font-size: 140%;
+    right: 1.1rem;
+    top: -1.1rem;
+}
+
+button {
+    color: var(--color-lightest);
+    font-weight: bolder;
+}
+
+button.real-submit {
+    color: var(--color-lightest);
+    background-color: var(--color-accent);
+}
+
+button:disabled {
+    background-color: var(--color-light);
+    cursor: default;
+}
+
+/* Message colouring */
+
+.alert {
+    color: var(--color-alert);
+    font-weight: bold;
+}
+
+.alert a {
+    color: var(--color-alert-accent);
+    font-weight: bolder;
+}
+
+.success {
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+.success a {
+    color: var(--color-success-accent);
+    font-weight: bolder;
+}
+
+.alert-background {
+    background-color: var(--color-alert-accent);
+}

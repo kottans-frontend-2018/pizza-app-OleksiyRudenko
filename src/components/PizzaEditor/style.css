@@ -1,0 +1,9 @@
+.pizzaEditor-canvas {
+    width: 320px;
+    height: 320px;
+}
+
+.pizzaEditor-params {
+    display: flex;
+    flex: 1 0;
+}

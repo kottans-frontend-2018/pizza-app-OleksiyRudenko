@@ -1,0 +1,16 @@
+#register-result {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.register-success {
+    color: #0e0;
+}
+
+.register-error {
+    color: #a00;
+}
+
+.register-hidden {
+    display: none;
+}

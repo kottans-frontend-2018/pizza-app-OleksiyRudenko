@@ -1,0 +1,12 @@
+#login-result {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.login-success {
+    color: #0e0;
+}
+
+.login-error {
+    color: #a00;
+}
