@@ -23,7 +23,10 @@ class PizzaImageryService {
         this.images[item.name] = Promise.resolve(image);
       });
       console.log('PizzaImageryService constructor images', this.images);
-    }).catch(rejection => console.log('PizzaImageryService.constructor() error', rejection));
+    }).catch(rejection => {
+      console.log('PizzaImageryService.constructor() error', rejection);
+      throw rejection;
+    });
   }
 
   /**
@@ -39,7 +42,10 @@ class PizzaImageryService {
     return Auth.getIngredients().then(data => data.map(item => ({
       name: item.name,
       url: item.image_url,
-    }))).catch(rejection => console.log('PizzaImageryService.loadIngredients() error', rejection));
+    }))).catch(rejection => {
+      console.log('PizzaImageryService.loadIngredients() error', rejection);
+      throw rejection;
+    });
   }
 }
 
